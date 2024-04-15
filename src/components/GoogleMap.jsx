@@ -1,11 +1,10 @@
-import React from 'react';
 import {
     GoogleMap,
-    LoadScript,
-    Marker,
     InfoWindow,
-    Circle,
+    LoadScript,
+    Marker
 } from '@react-google-maps/api';
+import React from 'react';
 import './GoogleMap.css';
 
 const containerStyle = {
@@ -63,7 +62,6 @@ function MapComponent() {
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={defaultCenter}
-                // center={{ lat: 53.54992, lng: 10.00678 }}
                 zoom={defaultZoom}
             >
                 {labs.map((lab, index) => (
@@ -73,18 +71,6 @@ function MapComponent() {
                         onClick={() => setSelectedLab(lab)}
                     />
                 ))}
-
-                {/* <Marker position={{ lat: 53, lng: 10.00678 }} /> */}
-
-                {/* <Circle
-                    // Center the circle at a specific coordinate
-                    center={defaultCenter}
-                    // Radius of the circle in meters
-                    radius={1000}
-                    // Options for the circle's appearance
-                    options={circleOptions}
-                    // onClick={() => setSelectedLab(lab)}
-                /> */}
 
                 {selectedLab && (
                     <InfoWindow
@@ -101,7 +87,5 @@ function MapComponent() {
         </LoadScript>
     );
 }
-
-// Select region, blink
 
 export default MapComponent;
