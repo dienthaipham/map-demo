@@ -2,6 +2,7 @@
     display: flex;
     text-align: center;
     justify-content: center;
+    position: relative;
 }
 
 .App-logo {
@@ -41,7 +42,7 @@
 }
 
 .leaflet-container {
-    width: 70vw;
+    width: 60vw;
     height: 100vh;
 }
 
@@ -100,6 +101,5 @@
 .leaflet-popup-close-button {
     display: none;
 }
-
 
 /* ********************* */

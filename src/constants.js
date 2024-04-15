@@ -2,8 +2,8 @@ export const hoChiMinhCityCoords = [10.7769, 106.7009];
 export const defaultZoom = 6;
 
 export const vietnamBounds = [
-    [8.1894, 102.14441],  // Southwest coordinates/home/pthaidien/Documents/geojson/vietnam.json
-    [23.393395, 109.468975]  // Northeast coordinates
+    [8.1894, 102.14441], // Southwest coordinates/home/pthaidien/Documents/geojson/vietnam.json
+    [23.393395, 109.468975], // Northeast coordinates
 ];
 
 // TODO: Update label
@@ -12,21 +12,21 @@ export const cities = [
         coordinate: [10.8193, 106.6561],
         label: 'Ho Chi Minh - TMA Solutions Lab 1, Lab 3, Lab 4, Lab 5, Lab 6',
         code: 1,
-        color: 'yellow'
+        color: 'yellow',
     },
     {
         coordinate: [13.72350943887635, 109.21210580779363],
-        label: 'Binh Dinh - Ho Chi Minh  TMA Solutions Lab 8',
+        label: 'Binh Dinh - TMA Solutions Lab 8',
         code: 2,
-        color: 'blue'
+        color: 'blue',
     },
     {
         coordinate: [21.028511, 105.804817],
-        label: 'Ha Noi',
+        label: 'Ha Noi - TMA Solutions Lab 9',
         code: 3,
-        color: 'green'
+        color: 'green',
     },
-]
+];
 
 export const labs = [
     {
@@ -57,6 +57,11 @@ export const labs = [
     {
         coordinate: [13.72350943887635, 109.21210580779363],
         label: 'TMA Solutions Lab 8 - Đại lộ Khoa học, Thung lũng Sáng tạo Quy Nhon, P. Ghềnh Ráng, TP. Quy Nhon, Bình Ðịnh',
-        code: 2
+        code: 2,
+    },
+    {
+        coordinate: [21.028511, 105.804817],
+        label: 'TMA Solutions Lab 9 - Cầu Giấy, Ngọc Khánh, Đống Đa, Hà Nội',
+        code: 3,
     },
 ];

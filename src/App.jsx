@@ -1,14 +1,19 @@
 import 'leaflet/dist/leaflet.css';
-import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { CircleMarker, GeoJSON, MapContainer, Popup, TileLayer } from 'react-leaflet';
-import vietnamGeoJSON from './vietnam.json';
-import { hoChiMinhCityCoords, defaultZoom, vietnamBounds, labs, cities } from './constants';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+    CircleMarker,
+    GeoJSON,
+    MapContainer,
+    Popup,
+    TileLayer,
+} from 'react-leaflet';
 import './App.css';
-
+import { cities, hoChiMinhCityCoords, labs, vietnamBounds } from './constants';
+import vietnamGeoJSON from './vietnam.json';
 
 function App() {
     const mapRef = useRef();
-    const [selectedCode, setSelectedCode] = useState(null); 
+    const [selectedCode, setSelectedCode] = useState(null);
 
     const circleRefs = useRef(new Array(labs.length));
     useEffect(() => {
@@ -19,7 +24,6 @@ function App() {
             }
         });
     }, []);
-   
 
     const onEachFeature = (feature, layer) => {
         if (feature.properties && feature.properties.name) {
@@ -31,49 +35,46 @@ function App() {
         color: 'blue',
         weight: 2,
         opacity: 0.5,
-        fillOpacity: 0
+        fillOpacity: 0,
     };
 
     const locations = useMemo(() => {
         if (!selectedCode) return cities;
-        return labs.filter(lab => lab.code === selectedCode);
+        return labs.filter((lab) => lab.code === selectedCode);
     }, [selectedCode]);
 
     const center = useMemo(() => {
         if (!selectedCode) return hoChiMinhCityCoords;
-        return cities.find(city => city.code === selectedCode).coordinate;
+        return cities.find((city) => city.code === selectedCode).coordinate;
     }, [selectedCode]);
-
-    // const zoom = useMemo(() => {
-    //     if (!selectedCode) return 6;
-    //     return 12;
-    // }, [selectedCode]);
 
     const handleMarkerClick = (lab) => {
         setSelectedCode(lab.code);
         if (mapRef.current) {
-            // mapRef.current.setView(lab.coordinate, 14); // Set view takes (latlng, zoom)
-            mapRef.current.flyTo(lab.coordinate, 14);
+            mapRef.current.setView(lab.coordinate, 13); // Set view takes (latlng, zoom)
         }
-    }
+    };
 
     return (
         <div className="App">
+            <button
+                style={{ position: 'absolute', top: '0', zIndex: 999, left: 0 }}
+                onClick={() => window.location.reload()}
+            >
+                Back
+            </button>
             <MapContainer
                 ref={mapRef}
                 center={center}
-
                 zoom={6}
-                minZoom={6}  // Prevents zooming out too much
-
+                minZoom={6} // Prevents zooming out too much
                 maxBounds={vietnamBounds}
-                maxBoundsViscosity={1.0}  // Makes the bounds totally 'sticky'
+                maxBoundsViscosity={1.0} // Makes the bounds totally 'sticky'
             >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-
 
                 <GeoJSON
                     data={vietnamGeoJSON}
@@ -81,16 +82,15 @@ function App() {
                     onEachFeature={onEachFeature}
                 />
 
-            
                 {locations.map((lab, index) => (
                     <CircleMarker
                         key={index}
                         ref={(el) => (circleRefs.current[index] = el)}
                         center={lab.coordinate}
-                        color={"red"}
-                        fillColor={"red"}
+                        color={'red'}
+                        fillColor={'red'}
                         fillOpacity={0.5}
-                        radius={12}
+                        radius={selectedCode ? 6 : 12}
                         className="pulsing-circle"
                         eventHandlers={{
                             mouseover: (e) => {
@@ -99,15 +99,13 @@ function App() {
                             mouseout: (e) => {
                                 e.target.closePopup();
                             },
-                            click: () => handleMarkerClick(lab)
+                            click: () => handleMarkerClick(lab),
                         }}
                     >
                         <Popup>{lab.label}</Popup>
                     </CircleMarker>
                 ))}
             </MapContainer>
-          
-
         </div>
     );
 }
